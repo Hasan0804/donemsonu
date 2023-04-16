@@ -109,28 +109,33 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var matris = document.getElementById("table-right");
-  var satirlar = matris.rows;
-  var dogruSiralama = true;
-  for (var i = 0; i < satirlar.length; i++) {
-    var hucreler = satirlar[i].cells;
-    for (var j = 0; j < hucreler.length - 1; j++) {
-      var suanki = parseInt(hucreler[j].innerHTML);
-      var sonraki = parseInt(hucreler[j + 1].innerHTML);
-      if (suanki > sonraki) {
-        dogruSiralama = false;
+  var tableRight = document.getElementById("table-right");
+  var matris = [];
+  for (var i = 0; i < tableRight.rows.length; i++) {
+    matris[i] = [];
+    for (var j = 0; j < tableRight.rows[i].cells.length; j++) {
+      var value = tableRight.rows[i].cells[j].innerHTML;
+      matris[i][j] = parseInt(value);
+    }
+  }
+  
+  var sirali = true;
+  for (var i = 0; i < matris.length; i++) {
+    for (var j = 0; j < matris[i].length - 1; j++) {
+      if (matris[i][j] > matris[i][j+1]) {
+        sirali = false;
         break;
       }
     }
-    if (!dogruSiralama) {
+    if (!sirali) {
       break;
     }
   }
-  if (dogruSiralama) {
+
+  if (sirali) {
     alert("Tamam");
-  }
-  else {
-    alert("Sayılar yanlış sıralanmış");
+  } else {
+    alert("Yanlış sıralama");
   }
 }
 
