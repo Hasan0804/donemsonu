@@ -21,7 +21,7 @@
   </head>
   <body>
     <div style="display: flex;">
-        <table>
+        <table id="table-left">
           <tr>
             <td id="cell-00" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
             <td id="cell-01" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
@@ -109,24 +109,32 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var matris = document.querySelectorAll("#table-right td");
-  var sira = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  var esitMi = true;
+            var table = document.getElementById("table-right");
+            var rows = table.getElementsByTagName("tr");
+            var cols = rows[0].getElementsByTagName("td");
+            var prev = cols[0].innerText;
 
-  for (var i = 0; i < matris.length; i++) {
-    if (parseInt(matris[i].innerHTML) !== sira[i]) {
-      esitMi = false;
-      break;
-    }
-  }
+            for (var i = 0; i < rows.length; i++) {
+                cols = rows[i].getElementsByTagName("td");
 
-  if (esitMi) {
-    alert("Tamam");
-  } else {
-    alert("Sıralama yanlış");
-  }
-}
+                for (var j = 0; j < cols.length; j++) {
+                    var curr = cols[j].innerText;
 
+                    if (i === 0 && j === 0) {
+                        continue;
+                    }
+
+                    if (prev > curr) {
+                        alert("Sıralama yanlış");
+                        return;
+                    }
+
+                    prev = curr;
+                }
+            }
+
+            alert("Tamam");
+        }
 
 
 
