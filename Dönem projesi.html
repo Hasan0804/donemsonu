@@ -109,33 +109,29 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var ikinciMatris = [];
-  var satirSayisi = parseInt(document.getElementById("ikinciMatrisSatirSayisi").value);
-  var sutunSayisi = parseInt(document.getElementById("ikinciMatrisSutunSayisi").value);
-
-  // ikinci matrisi oluşturma
-  for (var i = 0; i < satirSayisi; i++) {
-    ikinciMatris[i] = [];
-    for (var j = 0; j < sutunSayisi; j++) {
-      var id = "ikinciMatris_" + i + "_" + j;
-      ikinciMatris[i][j] = parseInt(document.getElementById(id).value);
-    }
-  }
-
-  var sirali = true;
-  for (var i = 0; i < satirSayisi; i++) {
-    for (var j = 0; j < sutunSayisi - 1; j++) {
-      if (ikinciMatris[i][j] > ikinciMatris[i][j+1]) {
-        sirali = false;
+  var matris = document.getElementById("table-right");
+  var satirlar = matris.rows;
+  var dogruSiralama = true;
+  for (var i = 0; i < satirlar.length; i++) {
+    var hucreler = satirlar[i].cells;
+    for (var j = 0; j < hucreler.length - 1; j++) {
+      var suanki = parseInt(hucreler[j].innerHTML);
+      var sonraki = parseInt(hucreler[j + 1].innerHTML);
+      if (suanki > sonraki) {
+        dogruSiralama = false;
         break;
       }
     }
-    if (!sirali) {
-      document.getElementById("sonuc").innerHTML = "İkinci matrisdeki sayılar küçükten büyüğe sıralanmamıştır.";
-      return;
+    if (!dogruSiralama) {
+      break;
     }
   }
-  document.getElementById("sonuc").innerHTML = "İkinci matrisdeki sayılar küçükten büyüğe sıralanmıştır.";
+  if (dogruSiralama) {
+    alert("Tamam");
+  }
+  else {
+    alert("Sayılar yanlış sıralanmış");
+  }
 }
 
 
