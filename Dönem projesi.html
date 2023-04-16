@@ -108,32 +108,7 @@ function drop(event) {
 
 // çalışdı bura gadar 
 
-function onDragStart(event) {
-  event.dataTransfer.setData("text/plain", event.target.id);
-  event.dataTransfer.dropEffect = "move";
-  event.target.classList.add("dragging");
-}
 
-function onDragOver(event) {
-  event.preventDefault();
-  event.dataTransfer.dropEffect = "move";
-  const target = event.target.closest(".cell:not(.filled)");
-  if (target) {
-    target.classList.add("dragover");
-  }
-}
-
-function onDrop(event) {
-  event.preventDefault();
-  const id = event.dataTransfer.getData("text");
-  const draggable = document.getElementById(id);
-  const target = event.target.closest(".cell:not(.filled)");
-  if (target) {
-    target.appendChild(draggable);
-    target.classList.remove("dragover");
-    draggable.classList.remove("dragging");
-  }
-}
 
 
     </script>
