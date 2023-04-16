@@ -109,33 +109,23 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-            var table = document.getElementById("table-right");
-            var rows = table.getElementsByTagName("tr");
-            var cols = rows[0].getElementsByTagName("td");
-            var prev = cols[0].innerText;
+  var matris = document.getElementById("table-right").getElementsByTagName("td");
+  var sira = true;
 
-            for (var i = 0; i < rows.length; i++) {
-                cols = rows[i].getElementsByTagName("td");
+  for (var i = 0; i < matris.length; i++) {
+    var sayi = parseInt(matris[i].innerHTML);
+    if (sayi !== i + 1) {
+      sira = false;
+      break;
+    }
+  }
 
-                for (var j = 0; j < cols.length; j++) {
-                    var curr = cols[j].innerText;
-
-                    if (i === 0 && j === 0) {
-                        continue;
-                    }
-
-                    if (prev > curr) {
-                        alert("Sıralama yanlış");
-                        return;
-                    }
-
-                    prev = curr;
-                }
-            }
-
-            alert("Tamam");
-        }
-
+  if (sira) {
+    alert("Tamam");
+  } else {
+    alert("Sıralama yanlış");
+  }
+}
 
 
 
