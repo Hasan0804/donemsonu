@@ -98,24 +98,22 @@ function allowDrop(ev) {
 }
 
 function drop(ev) {
-            ev.preventDefault();
-            var source = document.getElementById(ev.dataTransfer.getData("text"));
-            var target = ev.target;
-            if (target.getAttribute("data-source") !== source.id) {
-                target.innerHTML = source.innerHTML;
-                target.classList.add("highlight");
-                source.innerHTML = "";
-                source.classList.remove("highlight");
-            }
-        }
-
-        function selectCell(ev) {
-            if (selectedCell !== null) {
-                selectedCell.classList.remove("highlight");
-            }
-            selectedCell = ev.target;
-            selectedCell.classList.add("highlight");
-        }
+  ev.preventDefault();
+  const droppedData = ev.dataTransfer.getData("text/plain");
+  const droppedElement = document.getElementById(droppedData);
+  const droppedValue = droppedElement.getAttribute("data-value");
+  const droppedSource = droppedElement.getAttribute("data-source");
+  const target = ev.target;
+  
+  if (target.tagName === "TD" && target.getAttribute("draggable") === "false") {
+    target.innerHTML = droppedValue;
+    target.classList.remove("drop-hover");
+    const sourceElement = document.getElementById(droppedSource);
+    sourceElement.innerHTML = "";
+    sourceElement.setAttribute("draggable", "true");
+    sourceElement.setAttribute("ondragstart", "drag(event)");
+  }
+}
 
 
 
