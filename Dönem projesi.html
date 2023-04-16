@@ -102,14 +102,22 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  var source = document.getElementById(data);
-  var value = source.getAttribute("data-value");
-  var sourceId = source.getAttribute("data-source");
-  var target = ev.target;
-  var targetId = target.id;
-  target.textContent = value;
-  source.setAttribute("draggable", false);
+  const data = ev.dataTransfer.getData("text");
+  const source = document.getElementById(data);
+  const target = ev.target;
+  if (target.tagName.toLowerCase() === "td" && target.classList.contains("droppable")) {
+    const sourceValue = parseInt(source.getAttribute("data-value"));
+    const targetValue = parseInt(target.getAttribute("data-value"));
+    target.textContent = targetValue;
+    source.textContent = sourceValue;
+    source.removeAttribute("data-value");
+    source.removeAttribute("draggable");
+    source.classList.remove("draggable");
+    target.removeAttribute("data-value");
+    target.removeAttribute("ondragover");
+    target.removeAttribute("ondrop");
+    target.classList.remove("droppable");
+  }
 }
 
 
