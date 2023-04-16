@@ -112,6 +112,8 @@ function drop(ev) {
     sourceElement.innerHTML = "";
     sourceElement.setAttribute("draggable", "true");
     sourceElement.setAttribute("ondragstart", "drag(event)");
+    this.innerHTML = ev.dataTransfer.getData("text/plain");
+
   }
 }
 
