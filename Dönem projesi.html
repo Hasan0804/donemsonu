@@ -89,15 +89,21 @@
 
       // Matrisi dolduran fonksiyon çağırılır
       fillMatrix();
-      function allowDrop(ev) {
+
+//    new line 
+function allowDrop(ev) {
   ev.preventDefault();
+  ev.target.classList.add("highlight");
 }
 
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.innerHTML = data;
+  ev.target.classList.remove("highlight");
 }
+
+
 
     </script>
   </body>
