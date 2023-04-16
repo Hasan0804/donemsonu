@@ -99,37 +99,26 @@ function allowDrop(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  let data = ev.dataTransfer.getData("text");
-  let sourceElement = document.getElementById(data);
-  let sourceParent = sourceElement.parentNode;
-  let targetElement = ev.target;
-  let targetParent = targetElement.parentNode;
-
-  // Check if target cell is empty
-  if (targetElement.getAttribute("data-value") === "") {
-    // Swap values of source and target cells
-    let sourceValue = sourceElement.getAttribute("data-value");
-    let targetValue = targetElement.getAttribute("data-value");
-    sourceElement.setAttribute("data-value", targetValue);
-    targetElement.setAttribute("data-value", sourceValue);
-
-    // Set source cell as empty
-    sourceElement.setAttribute("data-value", "");
-    sourceElement.style.backgroundColor = "";
-
-    // Set target cell as filled
-    targetElement.innerHTML = targetValue;
-    targetElement.style.backgroundColor = "lightblue";
-  }
-
-  // Reset all cells' onclick and ondrop attributes
-  let cells = document.getElementsByTagName("td");
-  for (let i = 0; i < cells.length; i++) {
-    cells[i].onclick = function () { selectCell(this); };
-    cells[i].ondrop = function () { drop(event); };
-    cells[i].ondragover = function () { allowDrop(event); };
+  const data = ev.dataTransfer.getData("text/plain");
+  const source = document.getElementById(data);
+  const target = ev.target;
+  if (source.getAttribute("draggable") && target.classList.contains("cell")) {
+    const sourceParent = source.parentNode;
+    const targetParent = target.parentNode;
+    if (sourceParent === targetParent) {
+      sourceParent.insertBefore(source, target);
+    } else {
+      target.appendChild(source);
+    }
+    target.classList.remove("hovered");
+    source.setAttribute("data-source", target.id);
+    target.innerText = "";
+    source.style.opacity = "";
+    target.innerText = source.getAttribute("data-value");
+    source.setAttribute("draggable", false);
   }
 }
+
 
 
 
