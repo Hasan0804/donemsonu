@@ -109,34 +109,20 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var matris = [];
-  var satirlar = document.querySelectorAll("#table-right tr");
-
-  for (var i = 0; i < satirlar.length; i++) {
-    var satirDegerleri = [];
-    var hucreler = satirlar[i].querySelectorAll("td");
-    for (var j = 0; j < hucreler.length; j++) {
-      satirDegerleri.push(parseInt(hucreler[j].textContent));
-    }
-    matris.push(satirDegerleri);
+  var matris = document.getElementById("table-right").querySelectorAll("td");
+  var sayilar = [];
+  for (var i = 0; i < matris.length; i++) {
+    sayilar.push(parseInt(matris[i].innerText));
   }
-
-  var isSorted = true;
-  var targetOrder = 1;
-  for (var i = 0; i < 3; i++) {
-    for (var j = 0; j < 3; j++) {
-      if (matris[i][j] != targetOrder) {
-        isSorted = false;
-        break;
-      }
-      targetOrder++;
-    }
-    if (!isSorted) {
+  var kontrolSayilar = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  var siraKontrol = true;
+  for (var i = 0; i < sayilar.length; i++) {
+    if (sayilar[i] !== kontrolSayilar[i]) {
+      siraKontrol = false;
       break;
     }
   }
-
-  if (isSorted) {
+  if (siraKontrol) {
     alert("Tamam");
   } else {
     alert("Sıralama yanlış");
