@@ -109,26 +109,26 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var sorted = true;
-  for (var i = 0; i < n; i++) {
-    for (var j = 0; j < n; j++) {
-      if (matrixB[i][j] !== matrixC[i][j]) {
-        sorted = false;
-        break;
+  var tablo = document.getElementById("table-right");
+  var satirlar = tablo.rows;
+  var siralananSayilar = [];
+  var sayi, oncekiSayi = 0;
+  
+  for (var i = 0; i < satirlar.length; i++) {
+    var huceler = satirlar[i].cells;
+    for (var j = 0; j < huceler.length; j++) {
+      sayi = Number(huceler[j].innerHTML);
+      if (sayi < oncekiSayi) {
+        document.write("Sayılar küçükten büyüğe sıralanmamış!");
+        return;
       }
-    }
-    if (!sorted) {
-      break;
+      siralananSayilar.push(sayi);
+      oncekiSayi = sayi;
     }
   }
-  if (sorted) {
-    alert("tamam");
-    return true;
-  } else {
-    alert("sıralı değil");
-    return false;
-  }
+  document.write("Tamam!");
 }
+
 
 
 
