@@ -109,18 +109,34 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var matris = document.getElementById("table-right").getElementsByTagName("td");
-  var sira = true;
+  var matris = [];
+  var satirlar = document.querySelectorAll("#table-right tr");
 
-  for (var i = 0; i < matris.length; i++) {
-    var sayi = parseInt(matris[i].innerHTML);
-    if (sayi !== i + 1) {
-      sira = false;
+  for (var i = 0; i < satirlar.length; i++) {
+    var satirDegerleri = [];
+    var hucreler = satirlar[i].querySelectorAll("td");
+    for (var j = 0; j < hucreler.length; j++) {
+      satirDegerleri.push(parseInt(hucreler[j].textContent));
+    }
+    matris.push(satirDegerleri);
+  }
+
+  var isSorted = true;
+  var targetOrder = 1;
+  for (var i = 0; i < 3; i++) {
+    for (var j = 0; j < 3; j++) {
+      if (matris[i][j] != targetOrder) {
+        isSorted = false;
+        break;
+      }
+      targetOrder++;
+    }
+    if (!isSorted) {
       break;
     }
   }
 
-  if (sira) {
+  if (isSorted) {
     alert("Tamam");
   } else {
     alert("Sıralama yanlış");
