@@ -110,27 +110,22 @@ function drop(event) {
 
 function kontrolEt() {
   var matris = document.querySelectorAll("#table-right td");
-  var matrisDizi = [];
-  var siraKontrol = true;
+  var sira = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  var esitMi = true;
 
   for (var i = 0; i < matris.length; i++) {
-    matrisDizi.push(parseInt(matris[i].textContent));
-  }
-
-  for (var i = 1; i < matrisDizi.length; i++) {
-    if (matrisDizi[i] < matrisDizi[i-1]) {
-      siraKontrol = false;
+    if (parseInt(matris[i].innerHTML) !== sira[i]) {
+      esitMi = false;
       break;
     }
   }
 
-  if (siraKontrol && JSON.stringify(matrisDizi.slice(0, 3)) === "[1,2,3]" && JSON.stringify(matrisDizi.slice(3, 6)) === "[4,5,6]" && JSON.stringify(matrisDizi.slice(6, 9)) === "[7,8,9]") {
+  if (esitMi) {
     alert("Tamam");
   } else {
     alert("Sıralama yanlış");
   }
 }
-
 
 
 
