@@ -94,30 +94,24 @@
 //    new line 
 function allowDrop(ev) {
   ev.preventDefault();
-  ev.target.classList.add("highlight");
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
 }
 
 function drop(ev) {
   ev.preventDefault();
-  const data = ev.dataTransfer.getData("text/plain");
-  const source = document.getElementById(data);
-  const target = ev.target;
-  if (source.getAttribute("draggable") && target.classList.contains("cell")) {
-    const sourceParent = source.parentNode;
-    const targetParent = target.parentNode;
-    if (sourceParent === targetParent) {
-      sourceParent.insertBefore(source, target);
-    } else {
-      target.appendChild(source);
-    }
-    target.classList.remove("hovered");
-    source.setAttribute("data-source", target.id);
-    target.innerText = "";
-    source.style.opacity = "";
-    target.innerText = source.getAttribute("data-value");
-    source.setAttribute("draggable", false);
-  }
+  var data = ev.dataTransfer.getData("text");
+  var source = document.getElementById(data);
+  var value = source.getAttribute("data-value");
+  var sourceId = source.getAttribute("data-source");
+  var target = ev.target;
+  var targetId = target.id;
+  target.textContent = value;
+  source.setAttribute("draggable", false);
 }
+
 
 
 
