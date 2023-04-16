@@ -109,35 +109,39 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var tableRight = document.getElementById("table-right");
   var matris = [];
-  for (var i = 0; i < tableRight.rows.length; i++) {
-    matris[i] = [];
-    for (var j = 0; j < tableRight.rows[i].cells.length; j++) {
-      var value = tableRight.rows[i].cells[j].innerHTML;
-      matris[i][j] = parseInt(value);
+  var tablo = document.getElementById("table-right");
+  var satirlar = tablo.getElementsByTagName("tr");
+  
+  // Matrisi oluştur
+  for (var i = 0; i < satirlar.length; i++) {
+    matris.push([]);
+    var hucreler = satirlar[i].getElementsByTagName("td");
+    for (var j = 0; j < hucreler.length; j++) {
+      matris[i][j] = parseInt(hucreler[j].innerHTML);
     }
   }
   
-  var sirali = true;
+  // Kontrol et
+  var siraDogru = true;
+  var sayi = 1;
   for (var i = 0; i < matris.length; i++) {
-    for (var j = 0; j < matris[i].length - 1; j++) {
-      if (matris[i][j] > matris[i][j+1]) {
-        sirali = false;
-        break;
+    for (var j = 0; j < matris[i].length; j++) {
+      if (matris[i][j] !== sayi) {
+        siraDogru = false;
       }
-    }
-    if (!sirali) {
-      break;
+      sayi++;
     }
   }
-
-  if (sirali) {
+  
+  // Alert göster
+  if (siraDogru) {
     alert("Tamam");
   } else {
-    alert("Yanlış sıralama");
+    alert("Sıralama yanlış");
   }
 }
+
 
 
 
