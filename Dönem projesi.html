@@ -23,19 +23,19 @@
     <div style="display: flex;">
         <table>
           <tr>
-            <td id="cell-00" draggable="true" ondragstart="drag(event)" data-value="5" data-source="cell-00"></td>
-            <td id="cell-01" draggable="true" ondragstart="drag(event)" data-value="3" data-source="cell-01"></td>
-            <td id="cell-02" draggable="true" ondragstart="drag(event)" data-value="8" data-source="cell-02"></td>
+            <td id="cell-00" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
+            <td id="cell-01" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
+            <td id="cell-02" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
           </tr>
           <tr>
-            <td id="cell-10" draggable="true" ondragstart="drag(event)" data-value="4" data-source="cell-10"></td>
-            <td id="cell-11" draggable="true" ondragstart="drag(event)" data-value="1" data-source="cell-11"></td>
-            <td id="cell-12" draggable="true" ondragstart="drag(event)" data-value="7" data-source="cell-12"></td>
+            <td id="cell-10" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
+            <td id="cell-11" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
+            <td id="cell-12" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
           </tr>
           <tr>
-            <td id="cell-20" draggable="true" ondragstart="drag(event)" data-value="2" data-source="cell-20"></td>
-            <td id="cell-21" draggable="true" ondragstart="drag(event)" data-value="0" data-source="cell-21"></td>
-            <td id="cell-22" draggable="true" ondragstart="drag(event)" data-value="6" data-source="cell-22"></td>
+            <td id="cell-20" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
+            <td id="cell-21" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
+            <td id="cell-22" draggable="true" ondragstart="drag(event)" ondragover="allowDrop(event)" ondrop="drop(event)"></td>
           </tr>
         </table>
         <div style="width:20px;"></div>
@@ -99,11 +99,14 @@ function allowDrop(ev) {
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  if (ev.target.tagName === "TD") {
-    ev.target.innerHTML = data;
-    ev.target.style.backgroundColor = "lightblue";
-  }
+  var source = document.getElementById(data).getAttribute("data-source");
+  var value = document.getElementById(data).getAttribute("data-value");
+  ev.target.innerHTML = value;
+  ev.target.style.backgroundColor = "yellow";
+  document.getElementById(source).innerHTML = "";
+  document.getElementById(source).style.backgroundColor = "white";
 }
+
 
 
 
