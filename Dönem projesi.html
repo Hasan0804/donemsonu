@@ -92,25 +92,20 @@
       fillMatrix();
 
 //    new line 
-function allowDrop(ev) {
-  ev.preventDefault();
+function allowDrop(event) {
+  event.preventDefault(); // varsayılan davranışı engelle
 }
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+function drag(event) {
+  event.dataTransfer.setData("text", event.target.id); // sürüklenen veri
 }
 
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  var draggedElement = document.getElementById(data);
-  var droppedElement = ev.target;
-
-  if (droppedElement.tagName == "td" && droppedElement.getAttribute("draggable") == "false") {
-    droppedElement.innerHTML = draggedElement.innerHTML;
-    draggedElement.innerHTML = "";
-  }
+function drop(event) {
+  event.preventDefault(); // varsayılan davranışı engelle
+  var data = event.dataTransfer.getData("text"); // bırakılan veri
+  event.target.appendChild(document.getElementById(data)); // hedefe sürüklenen veriyi ekle
 }
+
 
     </script>
   </body>
