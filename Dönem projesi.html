@@ -109,25 +109,24 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var matris = document.getElementById("table-right").querySelectorAll("td");
-  var sayilar = [];
-  for (var i = 0; i < matris.length; i++) {
-    sayilar.push(parseInt(matris[i].innerText));
-  }
-  var kontrolSayilar = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  var siraKontrol = true;
-  for (var i = 0; i < sayilar.length; i++) {
-    if (sayilar[i] !== kontrolSayilar[i]) {
-      siraKontrol = false;
-      break;
+  var matris = document.getElementById("table-right");
+  var degerler = new Set();
+
+  for (var i = 0; i < matris.rows.length; i++) {
+    for (var j = 0; j < matris.rows[i].cells.length; j++) {
+      var hucre = matris.rows[i].cells[j];
+      var deger = parseInt(hucre.innerHTML);
+      if (isNaN(deger) || deger < 1 || deger > 9 || degerler.has(deger)) {
+        alert("Sıralama yanlış");
+        return;
+      }
+      degerler.add(deger);
     }
   }
-  if (siraKontrol) {
-    alert("Tamam");
-  } else {
-    alert("Sıralama yanlış");
-  }
+
+  alert("Tamam");
 }
+
 
 
     </script>
