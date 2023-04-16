@@ -102,25 +102,18 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  const source = document.getElementById(data);
-  const target = ev.target;
-  if (target.tagName.toLowerCase() === "td" && target.classList.contains("droppable")) {
-    const sourceValue = parseInt(source.getAttribute("data-value"));
-    const targetValue = parseInt(target.getAttribute("data-value"));
-    target.textContent = targetValue;
-    source.textContent = sourceValue;
-    source.removeAttribute("data-value");
-    source.removeAttribute("draggable");
-    source.classList.remove("draggable");
-    target.removeAttribute("data-value");
-    target.removeAttribute("ondragover");
-    target.removeAttribute("ondrop");
-    target.classList.remove("droppable");
+  var data = ev.dataTransfer.getData("text");
+  var draggedElement = document.getElementById(data);
+  var droppedElement = ev.target;
+
+  if (droppedElement.tagName == "TD" && droppedElement.getAttribute("draggable") == "false") {
+    droppedElement.innerHTML = draggedElement.innerHTML;
+    draggedElement.innerHTML = "";
   }
 }
 
- 
+
+
 
 
 
