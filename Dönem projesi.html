@@ -109,24 +109,33 @@ function drop(event) {
 // çalışdı bura gadar 
 
 function kontrolEt() {
-  var tablo = document.getElementById("table-right");
-  var satirlar = tablo.rows;
-  var siralananSayilar = [];
-  var sayi, oncekiSayi = 0;
-  
-  for (var i = 0; i < satirlar.length; i++) {
-    var huceler = satirlar[i].cells;
-    for (var j = 0; j < huceler.length; j++) {
-      sayi = Number(huceler[j].innerHTML);
-      if (sayi < oncekiSayi) {
-        document.write("Sayılar küçükten büyüğe sıralanmamış!");
-        return;
-      }
-      siralananSayilar.push(sayi);
-      oncekiSayi = sayi;
+  var ikinciMatris = [];
+  var satirSayisi = parseInt(document.getElementById("ikinciMatrisSatirSayisi").value);
+  var sutunSayisi = parseInt(document.getElementById("ikinciMatrisSutunSayisi").value);
+
+  // ikinci matrisi oluşturma
+  for (var i = 0; i < satirSayisi; i++) {
+    ikinciMatris[i] = [];
+    for (var j = 0; j < sutunSayisi; j++) {
+      var id = "ikinciMatris_" + i + "_" + j;
+      ikinciMatris[i][j] = parseInt(document.getElementById(id).value);
     }
   }
-  document.write("Tamam!");
+
+  var sirali = true;
+  for (var i = 0; i < satirSayisi; i++) {
+    for (var j = 0; j < sutunSayisi - 1; j++) {
+      if (ikinciMatris[i][j] > ikinciMatris[i][j+1]) {
+        sirali = false;
+        break;
+      }
+    }
+    if (!sirali) {
+      document.getElementById("sonuc").innerHTML = "İkinci matrisdeki sayılar küçükten büyüğe sıralanmamıştır.";
+      return;
+    }
+  }
+  document.getElementById("sonuc").innerHTML = "İkinci matrisdeki sayılar küçükten büyüğe sıralanmıştır.";
 }
 
 
