@@ -106,18 +106,11 @@ function drop(ev) {
   var draggedElement = document.getElementById(data);
   var droppedElement = ev.target;
 
-  if (droppedElement.tagName == "TD" && droppedElement.getAttribute("draggable") == "false") {
+  if (droppedElement.tagName == "td" && droppedElement.getAttribute("draggable") == "false") {
     droppedElement.innerHTML = draggedElement.innerHTML;
     draggedElement.innerHTML = "";
   }
 }
-
-
-
-
-
-
-
 
     </script>
   </body>
