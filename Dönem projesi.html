@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>3x3 Matris</title>
+    <title>Dönem Projesi</title>
     <style>
       table {
         border-collapse: collapse;
@@ -98,15 +98,24 @@ function allowDrop(ev) {
 }
 
 function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  var source = document.getElementById(data).getAttribute("data-source");
-  var value = document.getElementById(data).getAttribute("data-value");
-  ev.target.innerHTML = value;
-  ev.target.style.backgroundColor = "yellow";
-  document.getElementById(source).innerHTML = "";
-  document.getElementById(source).style.backgroundColor = "white";
-}
+            ev.preventDefault();
+            var source = document.getElementById(ev.dataTransfer.getData("text"));
+            var target = ev.target;
+            if (target.getAttribute("data-source") !== source.id) {
+                target.innerHTML = source.innerHTML;
+                target.classList.add("highlight");
+                source.innerHTML = "";
+                source.classList.remove("highlight");
+            }
+        }
+
+        function selectCell(ev) {
+            if (selectedCell !== null) {
+                selectedCell.classList.remove("highlight");
+            }
+            selectedCell = ev.target;
+            selectedCell.classList.add("highlight");
+        }
 
 
 
