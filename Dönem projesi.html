@@ -99,21 +99,35 @@ function allowDrop(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  const droppedData = ev.dataTransfer.getData("text/plain");
-  const droppedElement = document.getElementById(droppedData);
-  const droppedValue = droppedElement.getAttribute("data-value");
-  const droppedSource = droppedElement.getAttribute("data-source");
-  const target = ev.target;
-  
-  if (target.tagName === "TD" && target.getAttribute("draggable") === "false") {
-    target.innerHTML = droppedValue;
-    target.classList.remove("drop-hover");
-    const sourceElement = document.getElementById(droppedSource);
-    sourceElement.innerHTML = "";
-    sourceElement.setAttribute("draggable", "true");
-    sourceElement.setAttribute("ondragstart", "drag(event)");
-    this.innerHTML = ev.dataTransfer.getData("text/plain");
+  let data = ev.dataTransfer.getData("text");
+  let sourceElement = document.getElementById(data);
+  let sourceParent = sourceElement.parentNode;
+  let targetElement = ev.target;
+  let targetParent = targetElement.parentNode;
 
+  // Check if target cell is empty
+  if (targetElement.getAttribute("data-value") === "") {
+    // Swap values of source and target cells
+    let sourceValue = sourceElement.getAttribute("data-value");
+    let targetValue = targetElement.getAttribute("data-value");
+    sourceElement.setAttribute("data-value", targetValue);
+    targetElement.setAttribute("data-value", sourceValue);
+
+    // Set source cell as empty
+    sourceElement.setAttribute("data-value", "");
+    sourceElement.style.backgroundColor = "";
+
+    // Set target cell as filled
+    targetElement.innerHTML = targetValue;
+    targetElement.style.backgroundColor = "lightblue";
+  }
+
+  // Reset all cells' onclick and ondrop attributes
+  let cells = document.getElementsByTagName("td");
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].onclick = function () { selectCell(this); };
+    cells[i].ondrop = function () { drop(event); };
+    cells[i].ondragover = function () { allowDrop(event); };
   }
 }
 
